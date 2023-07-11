@@ -1,15 +1,25 @@
-* {
+*,
+::before,
+::after {
   --spirals-colour: gray;
   --line-thickness: 1px;
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  border-color: #e5e7eb;
 }
 
 body {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
   height: 100vh;
   margin: auto;
-  background-color: #000;
+  background-image: url("/images/BackgroundDark.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 #circles-container {
@@ -24,9 +34,17 @@ body {
 }
 
 .line {
+  z-index: 1;
   position: absolute;
-  height: var(--line-thickness);
-  background-color: var(--spirals-colour);
+  height: 100vh;
+  width: 100vw;
+  padding-top: 49.2%;
+  padding-bottom: 49.2%;
+  background-clip: content-box;
+  background-image: url("/images/BackgroundDark.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .circle {
