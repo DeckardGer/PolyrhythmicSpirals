@@ -1,6 +1,7 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+* {
+  --spirals-colour: gray;
+  --line-thickness: 1px;
+}
 
 body {
   display: flex;
@@ -11,28 +12,25 @@ body {
   background-color: #000;
 }
 
-.circles-padding {
-  width: 100%;
-  max-width: 100vh;
-  max-height: 100vh;
-  aspect-ratio: 1/1;
-  padding-top: 40px;
-  padding-bottom: 40px;
-  padding-left: 40px;
-  padding-right: 40px;
-}
-
 #circles-container {
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
   width: 100%;
-  height: 100%;
+  max-width: 100vh;
+  max-height: 100vh;
+  aspect-ratio: 1;
+}
+
+.line {
+  position: absolute;
+  height: var(--line-thickness);
+  background-color: var(--spirals-colour);
 }
 
 .circle {
   position: absolute;
   border-radius: 50%;
-  border: 1px solid gray;
+  border: var(--line-thickness) solid var(--spirals-colour);
 }
