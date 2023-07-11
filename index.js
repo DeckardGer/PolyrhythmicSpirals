@@ -5,11 +5,16 @@ const settings = {
   initialRadius: 5, // Percent
 };
 
-const largestCircleSize = 200;
-
 const init = () => {
   const container = document.getElementById("circles-container");
-  const radius = container.offsetWidth / 2;
+  // const radius = container.offsetWidth / 2;
+
+  const line = document.createElement("div");
+
+  line.classList.add("line");
+  line.style.width = `${100 - settings.paddingPercentage}%`;
+
+  container.appendChild(line);
 
   for (let i = 0; i < settings.numCircles; i++) {
     const circle = document.createElement("div");
@@ -19,7 +24,6 @@ const init = () => {
         ((100 - settings.initialRadius - settings.paddingPercentage) /
           settings.numCircles);
 
-    console.log(diameterPercentage);
     circle.classList.add("circle");
     circle.style.width = `${diameterPercentage}%`;
     circle.style.height = `${diameterPercentage}%`;
