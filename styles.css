@@ -2,6 +2,7 @@
 ::before,
 ::after {
   --spirals-colour: gray;
+  --default-opacity: 0.3;
   box-sizing: border-box;
   border-width: 0;
   border-style: solid;
@@ -58,7 +59,8 @@ body {
   height: 100%;
   border-radius: 50%;
   border: var(--line-thickness) solid var(--spirals-colour);
-  opacity: 0.3;
+  opacity: var(--default-opacity);
+  transition: opacity 1s;
 }
 
 .point {
@@ -72,8 +74,24 @@ body {
 
 .musicPoint {
   background-color: var(--spirals-colour);
-  opacity: 0.3;
+  opacity: var(--default-opacity);
   border-radius: 50%;
   position: absolute;
   z-index: 2;
+  transition: opacity 1s;
+}
+
+.noteHit {
+  opacity: 1;
+  transition: opacity 0s;
+  /* animation: animateNoteHit 1s linear; */
+}
+
+@keyframes animateNoteHit {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: var(--default-opacity);
+  }
 }

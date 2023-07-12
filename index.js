@@ -1,3 +1,6 @@
+// 48 - numCircles
+// 120 - timeToReset
+
 const settings = {
   numCircles: 21,
   duration: 30, // Seconds
@@ -9,6 +12,8 @@ const settings = {
   largestNumberOfLoops: 50,
   timeToReset: 900, // Seconds
 };
+
+let timesCrossed;
 
 const drawPoint = (circle, point, angle) => {
   const arcRaidus = (circle.clientWidth - settings.lineWidth) / 2;
@@ -40,6 +45,7 @@ const init = () => {
           settings.numCircles);
 
     circle.classList.add("circle");
+    circle.setAttribute("id", `circle-arc-${i + 1}`);
     circleContainer.style.width = `${diameterPercentage}%`;
     circleContainer.style.height = `${diameterPercentage}%`;
     circleContainer.style.setProperty(
@@ -76,6 +82,8 @@ const init = () => {
     circleContainer.appendChild(musicPointRight);
     container.appendChild(circleContainer);
 
+    timesCrossed = new Array(settings.numCircles).fill(1);
+
     drawPoint(circleContainer, point, settings.initialStartAngle);
   }
 };
@@ -94,6 +102,26 @@ const draw = () => {
 
     const numberOfLoops = settings.largestNumberOfLoops - i;
     const velocity = (fullLoop * numberOfLoops) / settings.timeToReset;
+
+    const time = Math.PI / velocity;
+
+    if (elapsedTime >= timesCrossed[i] * time) {
+      // Play sound
+      timesCrossed[i] += 1;
+
+      const circleArc = document.getElementById(`circle-arc-${i + 1}`);
+      const musicPoints = document.querySelectorAll(`#musicPoint-${i + 1}`);
+
+      circleArc.classList.add("noteHit");
+      musicPoints.forEach((musicPoint) => musicPoint.classList.add("noteHit"));
+
+      setTimeout(() => {
+        circleArc.classList.remove("noteHit");
+        musicPoints.forEach((musicPoint) =>
+          musicPoint.classList.remove("noteHit")
+        );
+      }, 1);
+    }
 
     drawPoint(
       circle,
