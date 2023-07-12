@@ -11,6 +11,7 @@ const settings = {
   initialStartAngle: Math.PI, // Radians
   largestNumberOfLoops: 50,
   timeToReset: 900, // Seconds
+  logoScale: 2.5, // Percent
 };
 
 let timesCrossed;
@@ -132,6 +133,18 @@ const draw = () => {
 
   requestAnimationFrame(draw);
 };
+
+const setFontSize = () => {
+  const circleContainer = document.getElementById("circles-container");
+  const developerLogo = document.getElementById("developer-logo");
+
+  const fontSize = (circleContainer.clientWidth * settings.logoScale) / 100;
+
+  developerLogo.style.fontSize = fontSize + "px";
+};
+
+window.addEventListener("resize", setFontSize);
+setFontSize();
 
 init();
 draw();

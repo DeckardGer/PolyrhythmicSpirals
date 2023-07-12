@@ -20,6 +20,7 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  overflow: hidden;
 }
 
 #circles-container {
@@ -84,14 +85,14 @@ body {
 .noteHit {
   opacity: 1;
   transition: opacity 0s;
-  /* animation: animateNoteHit 1s linear; */
 }
 
-@keyframes animateNoteHit {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: var(--default-opacity);
-  }
+.developer-logo {
+  text-align: center;
+  position: absolute;
+  z-index: 4;
+  opacity: var(--default-opacity);
+  color: var(--spirals-colour);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
 }
