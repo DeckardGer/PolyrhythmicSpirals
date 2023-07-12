@@ -6,6 +6,8 @@ const settings = {
   ballSize: 7, // Pixels
   lineWidth: 1, // Pixels
   initialStartAngle: Math.PI, // Radians
+  largestNumberOfLoops: 50,
+  timeToReset: 900, // Seconds
 };
 
 const drawPoint = (circle, point, angle) => {
@@ -45,22 +47,36 @@ const init = () => {
       `${settings.lineWidth}px`
     );
 
-    circleContainer.appendChild(circle);
-    container.appendChild(circleContainer);
-  }
-
-  for (let i = 0; i < 1; i++) {
-    const circle = document.getElementById("circle-1");
-
     const point = document.createElement("div");
     point.classList.add("point");
     point.setAttribute("id", `point-${i + 1}`);
+
     point.style.width = `${settings.ballSize}px`;
     point.style.height = `${settings.ballSize}px`;
 
-    drawPoint(circle, point, settings.initialStartAngle);
+    const musicPointLeft = document.createElement("div");
+    const musicPointRight = document.createElement("div");
+    musicPointLeft.classList.add("musicPoint");
+    musicPointRight.classList.add("musicPoint");
+    musicPointLeft.setAttribute("id", `musicPoint-${i + 1}`);
+    musicPointRight.setAttribute("id", `musicPoint-${i + 1}`);
 
-    circle.appendChild(point);
+    musicPointLeft.style.width = `${(settings.ballSize * 3) / 4}px`;
+    musicPointRight.style.width = `${(settings.ballSize * 3) / 4}px`;
+    musicPointLeft.style.height = `${(settings.ballSize * 3) / 4}px`;
+    musicPointRight.style.height = `${(settings.ballSize * 3) / 4}px`;
+    musicPointLeft.style.transform = "translate(-50%, 0)";
+    musicPointRight.style.transform = "translate(50%, 0)";
+    musicPointLeft.style.left = `${0}px`;
+    musicPointRight.style.right = `${0}px`;
+
+    circleContainer.appendChild(circle);
+    circleContainer.appendChild(point);
+    circleContainer.appendChild(musicPointLeft);
+    circleContainer.appendChild(musicPointRight);
+    container.appendChild(circleContainer);
+
+    drawPoint(circleContainer, point, settings.initialStartAngle);
   }
 };
 
@@ -70,14 +86,21 @@ const draw = () => {
   const currentTime = new Date().getTime();
   const elapsedTime = (currentTime - startTime) / 1000;
 
-  const circle = document.getElementById("circle-1");
-  const point = document.getElementById("point-1");
+  const fullLoop = 2 * Math.PI;
 
-  const velocity = 1;
+  for (i = 0; i < settings.numCircles; i++) {
+    const circle = document.getElementById(`circle-${i + 1}`);
+    const point = document.getElementById(`point-${i + 1}`);
 
-  drawPoint(circle, point, settings.initialRadius - elapsedTime * velocity);
+    const numberOfLoops = settings.largestNumberOfLoops - i;
+    const velocity = (fullLoop * numberOfLoops) / settings.timeToReset;
 
-  console.log(elapsedTime);
+    drawPoint(
+      circle,
+      point,
+      settings.initialStartAngle - velocity * elapsedTime
+    );
+  }
 
   requestAnimationFrame(draw);
 };
