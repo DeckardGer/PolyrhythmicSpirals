@@ -15,6 +15,7 @@ const settings = {
 };
 
 let timesCrossed;
+let audioFiles;
 
 const drawPoint = (circle, point, angle) => {
   const arcRaidus = (circle.clientWidth - settings.lineWidth) / 2;
@@ -87,6 +88,17 @@ const init = () => {
 
     drawPoint(circleContainer, point, settings.initialStartAngle);
   }
+
+  if (settings.numCircles <= 21) {
+    audioFiles = new Array(settings.numCircles);
+
+    for (i = 0; i < settings.numCircles; i++) {
+      const audio = new Audio(`/audio/${i + 1}.mp3`);
+      audio.volume = 0.5;
+
+      audioFiles[i] = audio;
+    }
+  }
 };
 
 let startTime = new Date().getTime();
@@ -107,8 +119,11 @@ const draw = () => {
     const time = Math.PI / velocity;
 
     if (elapsedTime >= timesCrossed[i] * time) {
-      // Play sound
       timesCrossed[i] += 1;
+
+      if (settings.numCircles >= 21) {
+        audioFiles[i].play();
+      }
 
       const circleArc = document.getElementById(`circle-arc-${i + 1}`);
       const musicPoints = document.querySelectorAll(`#musicPoint-${i + 1}`);
