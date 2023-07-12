@@ -3,14 +3,13 @@
 
 const settings = {
   numCircles: 21,
-  duration: 30, // Seconds
   paddingPercentage: 5, // Percent
   initialRadius: 10, // Percent
   ballSize: 7, // Pixels
   lineWidth: 1, // Pixels
   initialStartAngle: Math.PI, // Radians
   largestNumberOfLoops: 50,
-  timeToReset: 900, // Seconds
+  timeToReset: 240, // Seconds
   logoScale: 2.5, // Percent
 };
 

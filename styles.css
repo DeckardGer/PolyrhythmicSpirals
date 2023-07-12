@@ -84,7 +84,7 @@ body {
 
 .noteHit {
   opacity: 1;
-  border: 15px solid var(--spirals-colour);
+  /* border: 15px solid var(--spirals-colour); */
   transition: opacity 0s;
 }
 
