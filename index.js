@@ -101,6 +101,7 @@ const init = () => {
 };
 
 let startTime = new Date().getTime();
+let drawReq;
 
 const draw = () => {
   const currentTime = new Date().getTime();
@@ -117,11 +118,11 @@ const draw = () => {
 
     const time = Math.PI / velocity;
 
-    if (elapsedTime >= timesCrossed[i] * time) {
+    if (elapsedTime >= Math.abs(timesCrossed[i] * time)) {
       timesCrossed[i] += 1;
 
       if (settings.numCircles >= 21) {
-        audioFiles[i].play();
+        // audioFiles[i].play();
       }
 
       const circleArc = document.getElementById(`circle-arc-${i + 1}`);
@@ -145,7 +146,7 @@ const draw = () => {
     );
   }
 
-  requestAnimationFrame(draw);
+  drawReq = requestAnimationFrame(draw);
 };
 
 const setFontSize = () => {
@@ -158,7 +159,66 @@ const setFontSize = () => {
 };
 
 window.addEventListener("resize", setFontSize);
-setFontSize();
+
+const settingsBtn = document.querySelector(".settings");
+const settingsContainer = document.querySelector(".settings-container");
+
+settingsBtn.addEventListener("click", () => {
+  settingsBtn.classList.toggle("active");
+  settingsContainer.classList.toggle("active");
+});
+
+window.addEventListener("click", (event) => {
+  if (
+    !(
+      settingsContainer.contains(event.target) ||
+      settingsBtn.contains(event.target)
+    )
+  ) {
+    settingsBtn.classList.remove("active");
+    settingsContainer.classList.remove("active");
+  }
+});
+
+const numCirclesSlider = document.getElementById("numCircles");
+const largestNumberOfLoopsSlider = document.getElementById(
+  "largestNumberOfLoops"
+);
+const timeToResetSlider = document.getElementById("timeToReset");
+
+numCirclesSlider.oninput = function () {
+  window.cancelAnimationFrame(drawReq);
+  settings.numCircles = this.value;
+
+  document
+    .querySelectorAll(".circle-container")
+    .forEach((circle) => circle.remove());
+  init();
+  draw();
+};
+
+largestNumberOfLoopsSlider.oninput = function () {
+  window.cancelAnimationFrame(drawReq);
+  settings.largestNumberOfLoops = this.value;
+
+  document
+    .querySelectorAll(".circle-container")
+    .forEach((circle) => circle.remove());
+  init();
+  draw();
+};
+
+timeToResetSlider.oninput = function () {
+  window.cancelAnimationFrame(drawReq);
+  settings.timeToReset = this.value;
+
+  document
+    .querySelectorAll(".circle-container")
+    .forEach((circle) => circle.remove());
+  init();
+  draw();
+};
 
 init();
 draw();
+setFontSize();
