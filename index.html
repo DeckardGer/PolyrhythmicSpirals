@@ -13,30 +13,40 @@
       <div id="developer-logo" class="developer-logo">&#60;&#47;&#62;</div>
     </div>
     <div class="settings-container">
-      <input
-        type="range"
-        min="1"
-        max="100"
-        value="21"
-        class="slider"
-        id="numCircles"
-      />
-      <input
-        type="range"
-        min="1"
-        max="200"
-        value="50"
-        class="slider"
-        id="largestNumberOfLoops"
-      />
-      <input
-        type="range"
-        min="1"
-        max="900"
-        value="900"
-        class="slider"
-        id="timeToReset"
-      />
+      <div class="setting-slider">
+        <span>Number of Circles</span>
+        <input
+          type="range"
+          min="1"
+          max="100"
+          value="21"
+          class="slider"
+          id="numCircles"
+        />
+      </div>
+      <div class="setting-slider">
+        <span>Largest Number of Loops</span>
+        <input
+          type="range"
+          min="1"
+          max="200"
+          value="50"
+          class="slider"
+          id="largestNumberOfLoops"
+        />
+      </div>
+      <div class="setting-slider">
+        <span>Time to Complete 1 Cycle</span>
+        <input
+          type="range"
+          min="1"
+          max="900"
+          value="900"
+          class="slider"
+          id="timeToReset"
+        />
+      </div>
+      <div class="settings-background"></div>
     </div>
     <button class="settings">
       <svg
