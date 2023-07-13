@@ -9,7 +9,7 @@ const settings = {
   lineWidth: 1, // Pixels
   initialStartAngle: Math.PI, // Radians
   largestNumberOfLoops: 50,
-  timeToReset: 240, // Seconds
+  timeToReset: 900, // Seconds
   logoScale: 2.5, // Percent
 };
 
@@ -83,7 +83,7 @@ const init = () => {
     circleContainer.appendChild(musicPointRight);
     container.appendChild(circleContainer);
 
-    timesCrossed = new Array(settings.numCircles).fill(1);
+    timesCrossed = new Array(parseInt(numCirclesSlider.max)).fill(1);
 
     drawPoint(circleContainer, point, settings.initialStartAngle);
   }
